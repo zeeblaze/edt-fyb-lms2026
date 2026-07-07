@@ -1,13 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutGrid, BookOpen, UploadCloud, Megaphone, Settings, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { LayoutGrid, BookOpen, UploadCloud, Megaphone, Settings, X, LogOut } from "lucide-react";
 import { useSidebar } from "./SidebarContext";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { isOpen, setIsOpen } = useSidebar();
+
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    router.push('/login');
+    router.refresh();
+  };
 
   const navItems = [
     { name: "Dashboard", href: "/", icon: LayoutGrid },
@@ -71,7 +78,7 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="p-4 border-t border-border mt-auto">
+      <div className="p-4 border-t border-border mt-auto flex flex-col gap-3">
         <div className="flex items-center gap-3 px-3 py-2 bg-bg-main rounded-md border border-border">
           <div className="w-2 h-2 rounded-full bg-success"></div>
           <div>
@@ -79,6 +86,12 @@ export default function Sidebar() {
             <div className="text-[0.7rem] text-success">Connected</div>
           </div>
         </div>
+        <button 
+          onClick={handleLogout}
+          className="flex items-center justify-center gap-2 px-3 py-2 text-danger bg-danger/5 hover:bg-danger/10 hover:text-danger rounded-md text-[0.85rem] font-semibold transition-all border border-danger/10 hover:border-danger/20 w-full"
+        >
+          <LogOut size={16} /> Sign Out
+        </button>
       </div>
     </aside>
     </>
