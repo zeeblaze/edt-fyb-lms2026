@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Lock, Mail, Loader2, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
@@ -112,6 +113,16 @@ export default function LoginPage() {
               )}
             </button>
           </form>
+
+          <p className="mt-6 text-center text-sm text-text-muted">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/signup"
+              className="text-primary font-semibold hover:underline transition-all"
+            >
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>

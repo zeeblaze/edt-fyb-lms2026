@@ -7,9 +7,9 @@ import { SidebarProvider } from "@/components/SidebarContext";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isLoginPage = pathname === '/login';
+  const isPublicPage = pathname === '/login' || pathname === '/signup';
 
-  if (isLoginPage) {
+  if (isPublicPage) {
     return <main className="flex-1 w-full h-screen overflow-y-auto">{children}</main>;
   }
 
